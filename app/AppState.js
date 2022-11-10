@@ -9,8 +9,12 @@ class AppState extends EventEmitter {
   values = loadState("values", [Value]);
 
   players = loadState("players", [Player]);
-}
 
+  /** @type {import('./Models/p').Player | null} */
+  activePlayer = null;
+  fruit = ["pear", "banana", "apple", "strawberry"];
+  activeFruit = null;
+}
 export const appState = new Proxy(new AppState(), {
   get(target, prop) {
     isValidProp(target, prop);

@@ -17,6 +17,19 @@ class PsService {
       (p) => p.id !== removedPlayer.id
     );
     appState.players = newPlayersArr;
+
+    saveState("players", appState.players);
+    console.log(appState.players);
+  }
+  activePlayer(ap) {
+    appState.activePlayer = ap;
+  }
+  startGame() {
+    this.randomFruit();
+  }
+  randomFruit() {
+    appState.activeFruit =
+      appState.fruit[Math.floor(Math.random() * appState.fruit.length)];
   }
 }
 

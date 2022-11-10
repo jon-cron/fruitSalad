@@ -8,11 +8,20 @@ function _drawPlayer() {
   appState.players.forEach((p) => (template += p.PlayerTemplate));
   setHTML("players-score", template);
 }
+function _drawActivePlayer() {
+  let activePlayer = appState.activePlayer;
+  setHTML("activePlayer", activePlayer.ActiveTemplate);
+}
+function _drawActiveFruit() {
+  setHTML("activeFruit", `<h1>${appState.activeFruit}</h1>`);
+}
 
 export class PsController {
   constructor() {
     _drawPlayer();
     appState.on("players", _drawPlayer);
+    appState.on("activePlayer", _drawActivePlayer);
+    appState.on("activeFruit", _drawActiveFruit);
   }
 
   createPlayer() {
@@ -24,5 +33,11 @@ export class PsController {
   removePlayer(playerId) {
     let removedPlayer = appState.players.find((p) => p.id == playerId);
     psService.removePlayer(removedPlayer);
+  }
+  setActive(playerId) {
+    let activePlayer = appState.players.find((p) => p.id == playerId);
+    // console.log(activePlayer);
+    psService.activePlayer(activePlayer);
+    psService.startGame();
   }
 }
